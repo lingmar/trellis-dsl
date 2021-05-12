@@ -19,8 +19,8 @@
   0 * 4^0 + 1 * 4^1 + 3 * 4^2 = 49
   ```
   
-  Let `last` return the last (rightmost) base of a k-mer. For example,
-  `last(ACT) = T`.
+  Let `last` be the function that returns the last (rightmost) base of a k-mer.
+  For example, `last(ACT) = T`.
   
 ## Explicit Duration Model
 
@@ -34,14 +34,13 @@ The total number of states is `4^k*D` where `k` is the length of the k-mers and
 
 A state transition from a state (`kmer1`, `depth1`) to another state (`kmer2`,
 `depth2`) is in one of these cases:
-1. `depth1=0` (assuming indexing from `0`). Then the genome shifts one
-  base. That is, `kmer2` shifts one base relative to `kmer1`. For example, the
-  3-mer `ATC` may shift into `TCA`, `TCC`, `TCG`, or `TCT`.
-2. `depth1` is smaller than the maximum depth but larger than `0`. Then `kmer2`
-  is equal to `kmer1` and `depth2` is one smaller than `depth1`
-3. `depth1` is equal to the maximum depth. Then `depth2` *may* decrease one step
-  but does not have to. The k-mer does not shift, and `kmer2` is thus equal
-  to `kmer1`.
+1. `depth1 = 0` (assuming indexing from `0`): Then the genome shifts one base.
+  That is, `kmer2` shifts one base relative to `kmer1`. For example, the 3-mer
+  `ATC` may shift into `TCA`, `TCC`, `TCG`, or `TCT`.
+2. `0 < depth1 < D`: Then `kmer2` is equal to `kmer1` and `depth2` is one
+  smaller than `depth1`
+3. `depth1 = D`: Then `depth2` *may* decrease one step but does not have to. The
+  k-mer does not shift, and `kmer2` is thus equal to `kmer1`.
 
 ### Raw input
   The raw inputs are given via files in fast 5 formats.
@@ -113,16 +112,16 @@ The probability of transitioning from (`kmer1`, `depth1`) into (`kmer2`,
    by the probability of `kmer2` staying for `depth2` time steps:
    
    ```
-   TransitionProbabilities[base2idx(kmer1), last(kmer2)] * DurationProbabilities[depth2]`
+   TransitionProbabilities[base2idx(kmer1), last(kmer2)] * DurationProbabilities[depth2]
    ```
    
-2. `0 <= depth1 <= D`: The only state that (`kmer1`, `depth1`) can transition
-   into is (`kmer1`, `depth1` - 1). For that state the transition probability is
-   1, for all others it is 0.
+2. `0 < depth1 < D`: The only state that (`kmer1`, `depth1`) can transition into
+   is (`kmer1`, `depth1`-1). For that state the transition probability is 1, for
+   all others it is 0.
    
 3. `depth = D`: The state (`kmer1`, `depth1`) transitions into itself with
-   probability `TailFactor`, and into (`kmer1`, `depth1` - 1) with probability
-   `1-TailFactor`.
+   probability `TailFactor`, and into (`kmer1`, `depth1`-1) with probability
+   1-`TailFactor`.
 
 ## Explicit Duration Model
 TODO
