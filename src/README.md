@@ -44,9 +44,9 @@ A state transition from a state (`kmer1`, `depth1`) to another state (`kmer2`,
 
 ### Raw input
   The raw inputs are given via files in fast 5 formats.
-  * A model file, for example `synthetic_dna/model/Params3_true.h5` contains model
-    parameters as well as data that has been found via training. It has the
-    following layout:
+* A model file, for example `synthetic_dna/model/Params3_true.h5` contains model
+parameters as well as data that has been found via training. It has the
+following layout:
   
   ```
   .
@@ -63,11 +63,11 @@ A state transition from a state (`kmer1`, `depth1`) to another state (`kmer2`,
   ```
   The meaning of the probability tables are:
   * `ObservationProbabilities[i,s] = P(s | i)`, i.e. the probability of
-    observing signal `s` given the `i`:th k-mer (regardless of depth).
+  observing signal `s` given the `i`:th k-mer (regardless of depth).
   * `DurationProbabilities[d]`: the probability of the current k-mer staying for
-     `d` time steps.
+  `d` time steps.
   * `TransitionProbabilities[i,b]`: the probability of the `i`:th k-mer shifting
-    so that its "newest" base becomes `b`.
+  so that its "newest" base becomes `b`.
 
 * A signal file, for example `synthetic_dna/synthetic_dna/data/signals100_1.fast5`:
   ```
