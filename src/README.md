@@ -34,10 +34,10 @@ The total number of states is `4^k*D` where `k` is the length of the k-mers and
 
 A state transition from a state (`kmer1`, `depth1`) to another state (`kmer2`,
 `depth2`) is in one of these cases:
-1. `depth1 = 0` (assuming indexing from `0`): Then the genome shifts one base.
+1. `depth1 = 1` (assuming indexing from `1`): Then the genome shifts one base.
   That is, `kmer2` shifts one base relative to `kmer1`. For example, the 3-mer
   `ATC` may shift into `TCA`, `TCC`, `TCG`, or `TCT`.
-2. `0 < depth1 < D`: Then `kmer2` is equal to `kmer1` and `depth2` is one
+2. `1 < depth1 < D`: Then `kmer2` is equal to `kmer1` and `depth2` is one
   smaller than `depth1`
 3. `depth1 = D`: Then `depth2` *may* decrease one step but does not have to. The
   k-mer does not shift, and `kmer2` is thus equal to `kmer1`.
@@ -108,14 +108,14 @@ is `ObservationProbabilities[base2idx(kmer), s]`.
 ### Transition probabilities
 The probability of transitioning from (`kmer1`, `depth1`) into (`kmer2`,
 `depth2`) follow the three cases for transitions listed above:
-1. `depth1 = 0`: The probability of shifting from `kmer1` to `kmer2` multiplied
+1. `depth1 = 1`: The probability of shifting from `kmer1` to `kmer2` multiplied
    by the probability of `kmer2` staying for `depth2` time steps:
    
    ```
    TransitionProbabilities[base2idx(kmer1), last(kmer2)] * DurationProbabilities[depth2]
    ```
    
-2. `0 < depth1 < D`: The only state that (`kmer1`, `depth1`) can transition into
+2. `1 < depth1 < D`: The only state that (`kmer1`, `depth1`) can transition into
    is (`kmer1`, `depth1`-1). For that state the transition probability is 1, for
    all others it is 0.
    
