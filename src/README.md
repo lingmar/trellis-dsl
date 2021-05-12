@@ -123,5 +123,5 @@ The probability of transitioning from (`kmer1`, `depth1`) into (`kmer2`,
    probability `TailFactor`, and into (`kmer1`, `depth1`-1) with probability
    1-`TailFactor`.
 
-## Explicit Duration Model
+## Helicase Model
 TODO
